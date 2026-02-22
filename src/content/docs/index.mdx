@@ -1,0 +1,39 @@
+---
+title: ByWrit
+description: Verified identity for AI agents. One KYC, every service.
+template: splash
+hero:
+  tagline: Let your AI agent create accounts on any service — backed by your real, verified identity.
+  actions:
+    - text: Get Started
+      link: /getting-started/quickstart/
+      icon: right-arrow
+    - text: View Protocol
+      link: /protocol/oidc-extensions/
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## How it works
+
+<CardGrid>
+  <Card title="1. Verify once" icon="approve-check">
+    Complete a one-time KYC check (government ID + selfie). Takes ~2 minutes.
+  </Card>
+  <Card title="2. Generate a token" icon="random">
+    Create an agent token from your dashboard and give it to your AI tool.
+  </Card>
+  <Card title="3. AI signs up for you" icon="rocket">
+    When your agent needs a service, it uses ByWrit to create an account backed by your verified identity.
+  </Card>
+  <Card title="4. You own everything" icon="open-book">
+    Log in to any agent-created account manually. Full visibility and control.
+  </Card>
+</CardGrid>
+
+## For Service Providers
+
+Accept AI agent signups with confidence. ByWrit provides standard OIDC with KYC-verified identity — no new protocol to learn.
+
+[Integration Guide →](/sp-guide/integration/)

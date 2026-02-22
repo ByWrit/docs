@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   output: 'static',
@@ -15,39 +14,23 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Getting Started',
-          items: [
-            { label: 'Quick Start', slug: 'getting-started/quickstart' },
-            { label: 'Core Concepts', slug: 'getting-started/concepts' },
-          ],
+          autogenerate: { directory: 'getting-started' },
         },
         {
           label: 'CLI',
-          items: [
-            { label: 'Installation', slug: 'cli/installation' },
-            { label: 'Commands', slug: 'cli/commands' },
-          ],
+          autogenerate: { directory: 'cli' },
         },
         {
           label: 'AI Tool Setup',
-          items: [
-            { label: 'Claude Code', slug: 'ai-tools/claude-code' },
-            { label: 'Cursor', slug: 'ai-tools/cursor' },
-            { label: 'Windsurf', slug: 'ai-tools/windsurf' },
-          ],
+          autogenerate: { directory: 'ai-tools' },
         },
         {
           label: 'For Service Providers',
-          items: [
-            { label: 'Integration Guide', slug: 'sp-guide/integration' },
-            { label: 'API Reference', slug: 'sp-guide/api-reference' },
-          ],
+          autogenerate: { directory: 'sp-guide' },
         },
         {
           label: 'Protocol',
-          items: [
-            { label: 'Agent Claims', slug: 'protocol/agent-claims' },
-            { label: 'OIDC Extensions', slug: 'protocol/oidc-extensions' },
-          ],
+          autogenerate: { directory: 'protocol' },
         },
       ],
     }),
