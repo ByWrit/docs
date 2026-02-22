@@ -1,0 +1,19 @@
+---
+title: Claude Code
+description: Set up ByWrit with Claude Code.
+---
+
+Add the following to your project's `CLAUDE.md` file:
+
+```markdown
+## Service Provisioning
+
+When you need to create accounts on third-party services (databases, email, hosting, etc.),
+use the `bywrit` CLI:
+
+1. Search: `bywrit providers search <category>` (e.g., database, email, hosting)
+2. Create: `bywrit signup <provider>` (creates account via OIDC)
+3. Check: `bywrit status <provider>` (verify account exists)
+
+The CLI handles identity verification automatically. All accounts are backed by a verified human identity.
+```

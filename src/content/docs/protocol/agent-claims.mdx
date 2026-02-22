@@ -1,0 +1,46 @@
+---
+title: Agent Claims
+description: OIDC-A aligned agent identity claims in ByWrit tokens.
+---
+
+## Overview
+
+When an OIDC flow is initiated by an AI agent (via the ByWrit CLI), the resulting ID token includes optional agent identity claims. These are aligned with the [OIDC-A 1.0 proposal](https://arxiv.org/abs/2509.25974).
+
+## Claims
+
+| Claim | Type | Description |
+|-------|------|-------------|
+| `agent_type` | string | `coding`, `assistant`, or `autonomous` |
+| `agent_model` | string | e.g., `claude-opus-4-6`, `gpt-4` |
+| `agent_provider` | string | e.g., `anthropic`, `openai` |
+| `agent_instance_id` | string | Unique session/instance identifier |
+
+## Example Token
+
+```json
+{
+  "sub": "dev_01HXYZ...",
+  "email": "dev@example.com",
+  "email_verified": true,
+  "kyc_verified": true,
+  "verified_at": "2026-01-15T10:30:00Z",
+  "agent_type": "coding",
+  "agent_model": "claude-opus-4-6",
+  "agent_provider": "anthropic",
+  "agent_instance_id": "cli_session_abc123"
+}
+```
+
+## Discovery
+
+The ByWrit discovery document advertises agent claim support:
+
+```json
+{
+  "agent_claims_supported": ["agent_type", "agent_model", "agent_provider", "agent_instance_id"],
+  "agent_types_supported": ["coding", "assistant", "autonomous"]
+}
+```
+
+Standard OIDC consumers that don't understand these claims simply ignore them. Zero breaking changes.

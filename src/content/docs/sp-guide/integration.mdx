@@ -1,0 +1,53 @@
+---
+title: SP Integration Guide
+description: Add "Sign in with ByWrit" to your service in under 2 hours.
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+## Overview
+
+ByWrit is a standard OIDC provider. If your service already supports "Sign in with Google" or similar, adding ByWrit is a configuration change — not a code change.
+
+<Steps>
+
+1. **Register as a Service Provider**
+
+   Visit [partners.bywrit.com](https://partners.bywrit.com) and register your service. You'll receive OIDC client credentials (client_id and client_secret).
+
+2. **Configure ByWrit as an OIDC Provider**
+
+   Add ByWrit to your auth configuration:
+
+   | Setting | Value |
+   |---------|-------|
+   | Issuer | `https://id.bywrit.com` |
+   | Discovery URL | `https://id.bywrit.com/.well-known/openid-configuration` |
+   | Authorization URL | `https://id.bywrit.com/authorize` |
+   | Token URL | `https://id.bywrit.com/token` |
+   | Userinfo URL | `https://id.bywrit.com/userinfo` |
+   | Scopes | `openid email kyc` |
+
+3. **Handle the ID Token**
+
+   ByWrit tokens include standard OIDC claims plus KYC verification:
+
+   ```json
+   {
+     "sub": "dev_01HXYZ...",
+     "email": "dev@example.com",
+     "email_verified": true,
+     "kyc_verified": true,
+     "verified_at": "2026-01-15T10:30:00Z"
+   }
+   ```
+
+4. **You're Live**
+
+   Your service is now agent-discoverable. AI agents can find you via `bywrit providers search` and create accounts via `bywrit signup`.
+
+</Steps>
+
+<Aside type="tip">
+Every ByWrit signup is backed by a KYC-verified human identity. Zero bots, zero free-tier abuse.
+</Aside>

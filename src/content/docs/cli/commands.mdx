@@ -1,0 +1,79 @@
+---
+title: Commands
+description: Complete reference for all ByWrit CLI commands.
+---
+
+## `bywrit login`
+
+Configure your agent token.
+
+```bash
+bywrit login
+# Paste your agent token when prompted
+```
+
+## `bywrit whoami`
+
+Display your verified identity.
+
+```bash
+bywrit whoami
+# Email: dev@example.com
+# KYC: verified
+# Verified: 2026-01-15
+```
+
+Add `--json` for machine-readable output.
+
+## `bywrit providers search <category>`
+
+Search available service providers by category.
+
+```bash
+bywrit providers search database
+bywrit providers search email
+bywrit providers search hosting
+```
+
+## `bywrit providers list`
+
+List all integrated service providers.
+
+```bash
+bywrit providers list
+```
+
+## `bywrit signup <provider>`
+
+Create an account on a service provider via headless OIDC.
+
+```bash
+bywrit signup resend
+# ✓ Account created on Resend via ByWrit OIDC
+# Dashboard: https://resend.com/dashboard
+```
+
+## `bywrit status [provider]`
+
+Check account status. Without a provider, lists all grants.
+
+```bash
+bywrit status           # All grants
+bywrit status resend    # Specific provider
+```
+
+## `bywrit logout`
+
+Remove your agent token.
+
+```bash
+bywrit logout
+```
+
+## Global Flags
+
+| Flag | Description |
+|------|-------------|
+| `--json` | Output in JSON format |
+| `--help` | Show help |
+| `--version` | Show version |

@@ -1,0 +1,30 @@
+---
+title: Installation
+description: Install and configure the ByWrit CLI.
+---
+
+## Install
+
+```bash
+npm install -g bywrit
+```
+
+## Authenticate
+
+```bash
+bywrit login
+```
+
+You'll be prompted for your agent token. Generate one from your [ByWrit dashboard](https://app.bywrit.com).
+
+## Verify
+
+```bash
+bywrit whoami
+```
+
+This should display your verified email and KYC status.
+
+## Configuration
+
+The CLI stores its configuration at `~/.bywrit/config`. This file contains your agent token. Treat it like any other credential — don't commit it to version control.

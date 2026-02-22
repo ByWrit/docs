@@ -1,0 +1,49 @@
+---
+title: API Reference
+description: ByWrit API reference for service providers.
+---
+
+## Base URL
+
+```
+https://api.bywrit.com/v1
+```
+
+## Provider Directory
+
+### List Providers
+
+```
+GET /v1/providers
+GET /v1/providers?category=database
+```
+
+### Get Provider Details
+
+```
+GET /v1/providers/:slug
+```
+
+## Grants
+
+### List Developer Grants
+
+```
+GET /v1/grants
+Authorization: Bearer <agent_token>
+```
+
+### Check Specific Grant
+
+```
+GET /v1/grants?provider=:slug
+Authorization: Bearer <agent_token>
+```
+
+## SP Registration
+
+### Register as SP
+
+```
+POST /v1/sp/register
+```

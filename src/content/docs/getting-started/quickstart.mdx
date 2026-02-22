@@ -1,0 +1,68 @@
+---
+title: Quick Start
+description: Get your AI agent provisioning services in under 5 minutes.
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+Get your AI agent creating accounts on third-party services in under 5 minutes.
+
+## Prerequisites
+
+- Node.js 18+
+- An AI coding tool (Claude Code, Cursor, Windsurf, or similar)
+
+## Setup
+
+<Steps>
+
+1. **Verify your identity**
+
+   Visit [bywrit.com](https://bywrit.com) and click "Get Verified". You'll complete a one-time KYC check through Didit (government ID + selfie). This takes ~2 minutes.
+
+2. **Generate an agent token**
+
+   After verification, go to your dashboard and generate an agent token. Copy it — you'll need it in the next step.
+
+3. **Install the CLI**
+
+   ```bash
+   npm install -g bywrit
+   ```
+
+4. **Authenticate**
+
+   ```bash
+   bywrit login
+   # Paste your agent token when prompted
+   ```
+
+5. **Tell your AI tool about ByWrit**
+
+   Add this to your `CLAUDE.md`, `.cursorrules`, or equivalent:
+
+   ```
+   When you need to create accounts on third-party services,
+   use the `bywrit` CLI. Run `bywrit providers search <category>`
+   to find available providers.
+   ```
+
+</Steps>
+
+## Your First Provision
+
+Now when your AI agent needs a service:
+
+```bash
+# Agent searches for an email provider
+bywrit providers search email
+
+# Agent creates an account
+bywrit signup resend
+```
+
+That's it. Your agent handled the OIDC flow automatically, and the service provider created your account backed by your verified identity.
+
+<Aside type="tip">
+You can log in to any agent-created account manually by visiting the service and clicking "Sign in with ByWrit".
+</Aside>

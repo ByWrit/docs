@@ -1,0 +1,30 @@
+---
+title: OIDC Extensions
+description: ByWrit's extensions to standard OpenID Connect.
+---
+
+## Overview
+
+ByWrit extends standard OIDC with three additions:
+
+1. **KYC claims** — `kyc_verified` and `verified_at`
+2. **Agent claims** — identity of the AI agent initiating the flow
+3. **Discovery extensions** — advertise agent claim support
+
+All extensions are additive. Standard OIDC consumers process ByWrit tokens without modification.
+
+## KYC Claims
+
+| Claim | Type | Description |
+|-------|------|-------------|
+| `kyc_verified` | boolean | Whether the developer passed KYC |
+| `verified_at` | string (ISO 8601) | When KYC was completed |
+
+## Scopes
+
+| Scope | Claims Returned |
+|-------|----------------|
+| `openid` | `sub` |
+| `email` | `email`, `email_verified` |
+| `kyc` | `kyc_verified`, `verified_at` |
+| `agent` | `agent_type`, `agent_model`, `agent_provider`, `agent_instance_id` |
