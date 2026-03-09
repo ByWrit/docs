@@ -7,13 +7,14 @@ import { Steps, Aside } from '@astrojs/starlight/components';
 
 ## Overview
 
-ByWrit is a standard OIDC provider. If your service already supports "Sign in with Google" or similar, adding ByWrit is a configuration change — not a code change.
+ByWrit is a standard OIDC provider. If your service already supports "Sign in with Google" or similar, adding ByWrit is a configuration change, not a code change.
 
 <Steps>
 
 1. **Register as a Service Provider**
 
-   Visit [partners.bywrit.com](https://partners.bywrit.com) and register your service. You'll receive OIDC client credentials (client_id and client_secret).
+   Visit [partners.bywrit.com](https://partners.bywrit.com) and register your service. You'll receive OIDC client credentials (`client_id` and `client_secret`).
+   You must provide your standard human-facing `initiate_login_uri`, and you can optionally provide an `agent_initiate_login_uri` if you want a cleaner machine-startable entrypoint for managed agent signup.
 
 2. **Configure ByWrit as an OIDC Provider**
 
@@ -26,25 +27,27 @@ ByWrit is a standard OIDC provider. If your service already supports "Sign in wi
    | Authorization URL | `https://id.bywrit.com/authorize` |
    | Token URL | `https://id.bywrit.com/token` |
    | Userinfo URL | `https://id.bywrit.com/userinfo` |
-   | Scopes | `openid email kyc` |
+   | Recommended Scopes | `openid email` |
+
+   Self-service SP registration currently supports `openid`, `profile`, and `email` in the partner dashboard and SP API. For account creation, `openid email` is the practical baseline. `profile` is accepted in registration but does not currently add additional claims in the default setup.
 
 3. **Handle the ID Token**
 
-   ByWrit tokens include standard OIDC claims plus KYC verification:
+   In the current default setup, rely on the standard identity claims needed to create or look up the developer account:
 
    ```json
    {
      "sub": "dev_01HXYZ...",
      "email": "dev@example.com",
-     "email_verified": true,
-     "kyc_verified": true,
-     "verified_at": "2026-01-15T10:30:00Z"
+     "email_verified": true
    }
    ```
 
+   ByWrit's issuer also advertises optional protocol-level extensions such as `kyc_verified`, `verified_at`, and agent metadata. Those are not part of the default self-service SP setup today, so treat them as advanced issuer capabilities rather than the baseline integration contract.
+
 4. **You're Live**
 
-   Your service is now agent-discoverable. AI agents can find you via `bywrit providers search` and create accounts via `bywrit signup`.
+   Your service is now agent-discoverable. AI agents can find you via `bywrit providers search` and create accounts via `bywrit signup`. ByWrit-managed signup will use `agent_initiate_login_uri` when present, otherwise `initiate_login_uri`.
 
 </Steps>
 

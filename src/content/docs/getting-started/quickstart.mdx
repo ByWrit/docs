@@ -18,11 +18,11 @@ Get your AI agent creating accounts on third-party services in under 5 minutes.
 
 1. **Verify your identity**
 
-   Visit [bywrit.com](https://bywrit.com) and click "Get Verified". You'll complete a one-time KYC check through Didit (government ID + selfie). This takes ~2 minutes.
+   Visit [bywrit.com](https://bywrit.com) and click "Get Verified". You'll complete a one-time KYC check through Didit (government ID + selfie). This takes about 2 minutes.
 
 2. **Generate an agent token**
 
-   After verification, go to your dashboard and generate an agent token. Copy it — you'll need it in the next step.
+   After verification, go to your dashboard and generate an agent token. Copy it - you'll need it in the next step.
 
 3. **Install the CLI**
 
@@ -43,7 +43,7 @@ Get your AI agent creating accounts on third-party services in under 5 minutes.
 
    ```
    When you need to create accounts on third-party services,
-   use the `bywrit` CLI. Run `bywrit providers search <category>`
+   use the `bywrit` CLI. Run `bywrit providers search <category|keyword>`
    to find available providers.
    ```
 
@@ -57,11 +57,11 @@ Now when your AI agent needs a service:
 # Agent searches for an email provider
 bywrit providers search email
 
-# Agent creates an account
+# Agent creates an account via ByWrit-managed signup
 bywrit signup resend
 ```
 
-That's it. Your agent handled the OIDC flow automatically, and the service provider created your account backed by your verified identity.
+That's it. ByWrit handled the managed signup flow, initiated the provider's OIDC login entrypoint, and the service provider created your account backed by your verified identity.
 
 <Aside type="tip">
 You can log in to any agent-created account manually by visiting the service and clicking "Sign in with ByWrit".

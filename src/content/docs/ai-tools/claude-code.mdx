@@ -8,12 +8,12 @@ Add the following to your project's `CLAUDE.md` file:
 ```markdown
 ## Service Provisioning
 
-When you need to create accounts on third-party services (databases, email, hosting, etc.),
+When you need to create accounts on third-party services (auth, database, email, search, ai, observability, testing, etc.),
 use the `bywrit` CLI:
 
-1. Search: `bywrit providers search <category>` (e.g., database, email, hosting)
-2. Create: `bywrit signup <provider>` (creates account via OIDC)
+1. Search: `bywrit providers search <category|keyword>` (e.g., auth, database, email, search, ai, resend)
+2. Create: `bywrit signup <provider>` (uses ByWrit-managed signup backed by OIDC)
 3. Check: `bywrit status <provider>` (verify account exists)
 
-The CLI handles identity verification automatically. All accounts are backed by a verified human identity.
+The CLI handles identity verification automatically and asks ByWrit to run the provider signup flow for you. All accounts are backed by a verified human identity.
 ```

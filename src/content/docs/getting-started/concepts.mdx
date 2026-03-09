@@ -1,14 +1,14 @@
 ---
 title: Core Concepts
-description: How ByWrit works — identity verification, OIDC, and agent provisioning.
+description: How ByWrit works - identity verification, OIDC, and agent provisioning.
 ---
 
 ## What ByWrit Does
 
 ByWrit is a thin identity assertion layer. It solves two problems:
 
-1. **AI agents can't create accounts** — there's no way for a service to trust that a real human is behind an automated signup
-2. **Service providers want verified users** — they need to know each account belongs to a real person, not a bot
+1. **AI agents can't create accounts** - there's no way for a service to trust that a real human is behind an automated signup
+2. **Service providers want verified users** - they need to know each account belongs to a real person, not a bot
 
 ByWrit bridges this gap by verifying your identity once (via KYC) and then letting your AI agent use that verified identity to create accounts on integrated service providers.
 
@@ -16,7 +16,7 @@ ByWrit bridges this gap by verifying your identity once (via KYC) and then letti
 
 ### KYC-First Verification
 
-When you sign up for ByWrit, you complete identity verification through Didit. This involves a government ID check and a selfie with liveness detection. Once verified, your identity is confirmed — one real human, one account.
+When you sign up for ByWrit, you complete identity verification through Didit. This involves a government ID check and a selfie with liveness detection. Once verified, your identity is confirmed - one real human, one account.
 
 ### What ByWrit Stores
 
@@ -28,23 +28,25 @@ ByWrit practices radical data minimisation. After verification, we store exactly
 | Your verified email | Communication and OIDC claims |
 | KYC status | Verified or failed |
 
-That's it. No government ID images, no biometrics, no full name, no address. Didit handles the sensitive data — ByWrit only stores the assertion result.
+That's it. No government ID images, no biometrics, no full name, no address. Didit handles the sensitive data - ByWrit only stores the assertion result.
 
 ### OIDC Provider
 
-ByWrit acts as a standard OIDC (OpenID Connect) identity provider. When your AI agent creates an account on a service provider, it initiates an OIDC flow — the same mechanism behind "Sign in with Google" buttons. The service provider receives a token asserting your verified identity.
+ByWrit acts as a standard OIDC (OpenID Connect) identity provider. When your AI agent creates an account on a service provider, ByWrit starts from the provider's login initiation URL and runs the same OIDC flow behind "Sign in with Google" buttons. The service provider receives a token asserting your verified identity.
 
 ### Agent Tokens
 
-An agent token is a credential you generate from your ByWrit dashboard and give to your AI coding tool. It allows the CLI to act on your behalf when provisioning services.
+An agent token is a credential you generate from your ByWrit dashboard and give to your AI coding tool. It allows the CLI and ByWrit's managed signup API to act on your behalf when provisioning services. In the managed-signup path, the token is first exchanged for a short-lived ByWrit session, and ByWrit then drives the provider's login initiation URL on your behalf.
 
 ## Agent Claims (OIDC-A)
 
-ByWrit tokens include optional agent identity claims when the flow is initiated by an AI agent:
+ByWrit's OIDC issuer supports optional agent identity claims on agent-authorized flows:
 
-- `agent_type` — coding, assistant, or autonomous
-- `agent_model` — e.g., claude-opus-4-6
-- `agent_provider` — e.g., anthropic
-- `agent_instance_id` — unique session identifier
+- `agent_type` - coding, assistant, or autonomous
+- `agent_model` - e.g., claude-opus-4-6
+- `agent_provider` - e.g., anthropic
+- `agent_instance_id` - unique session identifier
 
 These claims give service providers visibility into which AI tools are creating accounts, enabling better analytics and risk assessment. Standard OIDC consumers that don't understand these claims simply ignore them.
+
+The current managed-signup path used by the CLI does not attach agent metadata into the OIDC request by default, so treat these as issuer capabilities rather than something every managed signup will include today.

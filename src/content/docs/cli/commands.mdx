@@ -12,6 +12,12 @@ bywrit login
 # Paste your agent token when prompted
 ```
 
+You can also pass the token directly:
+
+```bash
+bywrit login <agent-token>
+```
+
 ## `bywrit whoami`
 
 Display your verified identity.
@@ -25,14 +31,18 @@ bywrit whoami
 
 Add `--json` for machine-readable output.
 
-## `bywrit providers search <category>`
+## `bywrit providers search <category|keyword>`
 
-Search available service providers by category.
+Search available service providers by category or keyword.
 
 ```bash
+bywrit providers search auth
 bywrit providers search database
 bywrit providers search email
-bywrit providers search hosting
+bywrit providers search ai
+bywrit providers search observability
+bywrit providers search testing
+bywrit providers search resend
 ```
 
 ## `bywrit providers list`
@@ -43,13 +53,21 @@ List all integrated service providers.
 bywrit providers list
 ```
 
+## `bywrit providers info <slug>`
+
+Show provider details, including the human and agent login initiation URLs exposed by that provider.
+
+```bash
+bywrit providers info resend
+```
+
 ## `bywrit signup <provider>`
 
-Create an account on a service provider via headless OIDC.
+Create an account on a service provider via ByWrit-managed signup. ByWrit first tries the provider's `agent_initiate_login_uri`, then falls back to `initiate_login_uri`, and only uses the legacy direct OIDC path as a compatibility fallback.
 
 ```bash
 bywrit signup resend
-# ✓ Account created on Resend via ByWrit OIDC
+# Account created on Resend via ByWrit OIDC
 # Dashboard: https://resend.com/dashboard
 ```
 

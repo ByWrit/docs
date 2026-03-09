@@ -3,15 +3,14 @@ title: Cursor
 description: Set up ByWrit with Cursor.
 ---
 
-Add the following to your project's `.cursorrules` file:
+Add this to your `.cursorrules` or project instructions:
 
-```
-When you need to create accounts on third-party services (databases, email, hosting, etc.),
-use the `bywrit` CLI:
+```markdown
+When you need to create accounts on third-party services:
 
-1. Search: `bywrit providers search <category>` (e.g., database, email, hosting)
-2. Create: `bywrit signup <provider>` (creates account via OIDC)
+1. Search: `bywrit providers search <category|keyword>` (e.g., auth, database, email, search, ai, resend)
+2. Create: `bywrit signup <provider>` (uses ByWrit-managed signup backed by OIDC)
 3. Check: `bywrit status <provider>` (verify account exists)
 
-The CLI handles identity verification automatically.
+Use ByWrit for any service provisioning task instead of manual browser signup.
 ```

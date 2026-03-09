@@ -5,7 +5,9 @@ description: OIDC-A aligned agent identity claims in ByWrit tokens.
 
 ## Overview
 
-When an OIDC flow is initiated by an AI agent (via the ByWrit CLI), the resulting ID token includes optional agent identity claims. These are aligned with the [OIDC-A 1.0 proposal](https://arxiv.org/abs/2509.25974).
+ByWrit's OIDC issuer supports optional agent identity claims when agent metadata is supplied on an agent-authorized flow. These are aligned with the [OIDC-A 1.0 proposal](https://arxiv.org/abs/2509.25974).
+
+The current ByWrit-managed signup path does not attach this metadata by default, so these claims should be treated as supported issuer extensions rather than guaranteed output for every signup today.
 
 ## Claims
 
@@ -17,6 +19,8 @@ When an OIDC flow is initiated by an AI agent (via the ByWrit CLI), the resultin
 | `agent_instance_id` | string | Unique session/instance identifier |
 
 ## Example Token
+
+Representative example when the `agent` scope is requested and agent metadata is supplied:
 
 ```json
 {

@@ -1,6 +1,6 @@
 ---
 title: API Reference
-description: ByWrit API reference for service providers.
+description: ByWrit API reference for service providers and agent clients.
 ---
 
 ## Base URL
@@ -16,6 +16,7 @@ https://api.bywrit.com/v1
 ```
 GET /v1/providers
 GET /v1/providers?category=database
+GET /v1/providers?search=resend
 ```
 
 ### Get Provider Details
@@ -24,19 +25,86 @@ GET /v1/providers?category=database
 GET /v1/providers/:slug
 ```
 
-## Grants
+Provider details include the public login metadata used by agents and the CLI:
+
+- `id`
+- `slug`
+- `name`
+- `client_id`
+- `redirect_uris`
+- `scopes`
+- `initiate_login_uri`
+- `agent_initiate_login_uri`
+
+## Developer Grants
 
 ### List Developer Grants
 
 ```
-GET /v1/grants
+GET /v1/developers/grants
 Authorization: Bearer <agent_token>
 ```
 
 ### Check Specific Grant
 
 ```
-GET /v1/grants?provider=:slug
+GET /v1/developers/grants?provider=:slug
+Authorization: Bearer <agent_token>
+```
+
+## Agent API
+
+### Exchange Agent Token for a ByWrit Session
+
+```
+POST /v1/agent/session
+Authorization: Bearer <agent_token>
+```
+
+Returns a short-lived ByWrit session token:
+
+```json
+{
+  "session_token": "bw_sess_...",
+  "token_type": "Session",
+  "expires_in": 900
+}
+```
+
+### Start Managed Signup
+
+```
+POST /v1/agent/signups
+Authorization: Bearer <agent_token>
+Content-Type: application/json
+
+{
+  "provider": "resend"
+}
+```
+
+ByWrit will try the provider's `agent_initiate_login_uri` first, then `initiate_login_uri`.
+
+The request body can identify the provider in any of these ways:
+
+- `provider`
+- `provider_slug`
+- `sp_id`
+
+The response is a signup attempt object with a status such as:
+
+- `completed`
+- `already_exists`
+- `browser_required`
+- `additional_input_required`
+- `provider_unavailable`
+- `unsupported_by_provider`
+- `failed`
+
+### Fetch Managed Signup Status
+
+```
+GET /v1/agent/signups/:id
 Authorization: Bearer <agent_token>
 ```
 
@@ -47,3 +115,25 @@ Authorization: Bearer <agent_token>
 ```
 POST /v1/sp/register
 ```
+
+Registration requires:
+
+- `name`
+- `redirect_uris`
+- `initiate_login_uri`
+
+Optional fields include:
+
+- `website_url`
+- `description`
+- `category`
+- `agent_initiate_login_uri`
+- `allowed_scopes`
+
+Current self-service `allowed_scopes` values are:
+
+- `openid`
+- `profile`
+- `email`
+
+For the current default setup, use `openid email`.

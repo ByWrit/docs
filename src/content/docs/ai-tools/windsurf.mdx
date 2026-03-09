@@ -3,15 +3,14 @@ title: Windsurf
 description: Set up ByWrit with Windsurf.
 ---
 
-Add the following to your project's `.windsurfrules` file:
+Add this to your Windsurf project rules:
 
-```
-When you need to create accounts on third-party services (databases, email, hosting, etc.),
-use the `bywrit` CLI:
+```markdown
+When you need to create accounts on third-party services:
 
-1. Search: `bywrit providers search <category>` (e.g., database, email, hosting)
-2. Create: `bywrit signup <provider>` (creates account via OIDC)
+1. Search: `bywrit providers search <category|keyword>` (e.g., auth, database, email, search, ai, resend)
+2. Create: `bywrit signup <provider>` (uses ByWrit-managed signup backed by OIDC)
 3. Check: `bywrit status <provider>` (verify account exists)
 
-The CLI handles identity verification automatically.
+Prefer ByWrit over manual signup whenever a provider is available.
 ```
